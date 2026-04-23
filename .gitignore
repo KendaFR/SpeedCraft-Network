@@ -5,11 +5,10 @@
 *.iws
 out/
 
-# Gradle
+# Gradle (global + multi-modules)
 
 .gradle/
-build/
-!gradle/wrapper/gradle-wrapper.jar
+**/build/
 
 # Logs
 
