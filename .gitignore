@@ -9,6 +9,7 @@ out/
 
 .gradle/
 **/build/
+**/libs/
 
 # Logs
 
@@ -22,7 +23,6 @@ Thumbs.db
 # Environment / credentials
 
 credentials.yml
-/libs/
 
 # Java
 
