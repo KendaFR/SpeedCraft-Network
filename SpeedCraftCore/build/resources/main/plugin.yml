@@ -1,0 +1,5 @@
+name: SpeedCraft-Core
+version: '1.0-SNAPSHOT'
+main: fr.kenda.speedcraft.core.SpeedCraftCore
+load: STARTUP
+authors: [ Kenda ]

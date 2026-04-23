@@ -1,0 +1,208 @@
+plugins {
+    id 'java'
+    id 'com.github.johnrengelman.shadow' version '8.1.1'
+}
+
+group = 'fr.kenda'
+version = '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+
+    maven {
+        name = "papermc-repo"
+        url = "https://repo.papermc.io/repository/maven-public/"
+    }
+
+    maven {
+        name = "sonatype"
+        url = "https://oss.sonatype.org/content/groups/public/"
+    }
+}
+
+dependencies {
+    compileOnly "io.papermc.paper:paper-api:1.20.1-R0.1-SNAPSHOT"
+
+    implementation files('../SpeedCraftAPI/build/libs/SpeedCraftAPI-1.0-SNAPSHOT.jar')
+
+    implementation 'com.zaxxer:HikariCP:5.1.0'
+    implementation 'org.postgresql:postgresql:42.7.3'
+
+    compileOnly 'org.projectlombok:lombok:1.18.24'
+    annotationProcessor 'org.projectlombok:lombok:1.18.32'
+}
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(21)
+    }
+}
+
+tasks.withType(JavaCompile).configureEach {
+    options.encoding = 'UTF-8'
+    options.release.set(21)
+}
+
+processResources {
+    def props = [version: version]
+    inputs.properties props
+    filteringCharset 'UTF-8'
+
+    filesMatching('plugin.yml') {
+        expand props
+    }
+}
+
+//
+// ========================
+// BUILD CLEANUP (IMPORTANT)
+// ========================
+//
+
+tasks.jar {
+    enabled = false
+}
+
+shadowJar {
+    archiveClassifier.set("")
+}
+
+//
+// ========================
+// SERVER SETUP
+// ========================
+//
+
+def serverDir = file("D:/Bureau/Serveur/SpeedCraft")
+def serverJar = file("$serverDir/paper.jar")
+
+def javaExe = new File(System.getProperty("java.home"), "bin/java.exe")
+
+// 📥 Download Paper
+tasks.register('downloadPaper') {
+    group = "server"
+
+    doLast {
+        if (!serverJar.exists()) {
+            println "📥 Téléchargement Paper..."
+
+            serverDir.mkdirs()
+
+            new URL("https://fill-data.papermc.io/v1/objects/234a9b32098100c6fc116664d64e36ccdb58b5b649af0f80bcccb08b0255eaea/paper-1.20.1-196.jar")
+                    .withInputStream { input ->
+                        serverJar.withOutputStream { it << input }
+                    }
+
+            println "✔ Paper téléchargé"
+        }
+    }
+}
+
+// 📄 EULA auto
+tasks.register('setupServer') {
+    group = "server"
+    dependsOn 'downloadPaper'
+
+    doLast {
+        def eula = file("$serverDir/eula.txt")
+        if (!eula.exists()) {
+            eula.text = "eula=true"
+        }
+    }
+}
+
+// 📦 Copy plugin (SHADOW JAR ONLY)
+tasks.register('copyPlugin', Copy) {
+    group = "server"
+    dependsOn shadowJar
+
+    from tasks.shadowJar.archiveFile
+    into "$serverDir/plugins"
+}
+
+//
+// ========================
+// SERVER RUN
+// ========================
+//
+
+tasks.register('runServer') {
+    group = "server"
+    dependsOn 'setupServer', 'copyPlugin'
+
+    doLast {
+        def process = new ProcessBuilder(
+                javaExe.absolutePath,
+                "-Xms1G",
+                "-Xmx2G",
+                "-jar",
+                "paper.jar",
+                "nogui"
+        )
+                .directory(serverDir)
+                .redirectErrorStream(true)
+                .start()
+
+        def writer = new BufferedWriter(
+                new OutputStreamWriter(process.outputStream)
+        )
+
+        println "🚀 Serveur démarré"
+        println "⌨️ Tape tes commandes (stop pour quitter)"
+
+        Thread.start {
+            process.inputStream.eachLine { line ->
+                println "[MC] $line"
+            }
+        }
+
+        def input = System.in.newReader()
+
+        while (true) {
+            print "> "
+            def cmd = input.readLine()
+
+            if (cmd == null || cmd == "stop") {
+                writer.write("stop\n")
+                writer.flush()
+                break
+            }
+
+            writer.write(cmd + "\n")
+            writer.flush()
+        }
+
+        process.waitFor()
+        println "🛑 Serveur arrêté"
+    }
+}
+
+//
+// ========================
+// COPY TO GLOBAL LIBS
+// ========================
+//
+
+def globalLibDir = file("D:/Bureau/IntellijPlugin/SpeedCraft/libs")
+
+tasks.register('copyToCore') {
+    group = "Minecraft"
+    dependsOn shadowJar
+
+    doLast {
+        globalLibDir.mkdirs()
+
+        def jarFile = tasks.shadowJar.archiveFile.get().asFile
+
+        println "📦 Copy SHADOW JAR -> SpeedCraft/libs"
+
+        copy {
+            from jarFile
+            into globalLibDir
+        }
+
+        println "✔ API copiée dans SpeedCraft/libs"
+    }
+}
+
+build.finalizedBy(copyToCore)

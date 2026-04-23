@@ -1,0 +1,95 @@
+plugins {
+    id 'java'
+    id 'eclipse'
+    id "org.jetbrains.gradle.plugin.idea-ext" version "1.0.1"
+    id "com.github.johnrengelman.shadow" version "8.1.1"
+}
+
+group = 'fr.kenda'
+version = '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+
+    maven {
+        name = "papermc-repo"
+        url = "https://repo.papermc.io/repository/maven-public/"
+    }
+}
+
+dependencies {
+    // Velocity API (compile only → non inclus dans le jar)
+    compileOnly "com.velocitypowered:velocity-api:3.3.0-SNAPSHOT"
+    annotationProcessor "com.velocitypowered:velocity-api:3.5.0-SNAPSHOT"
+
+    compileOnly 'org.projectlombok:lombok:1.18.32'
+    annotationProcessor 'org.projectlombok:lombok:1.18.32'
+
+    // TON API locale (incluse dans le jar final)
+    implementation files("../libs/SpeedCraftAPI-1.0-SNAPSHOT.jar")
+}
+
+/**
+ * Java 17 config
+ */
+def targetJavaVersion = 17
+
+java {
+    def javaVersion = JavaVersion.toVersion(targetJavaVersion)
+    sourceCompatibility = javaVersion
+    targetCompatibility = javaVersion
+
+    if (JavaVersion.current() < javaVersion) {
+        toolchain.languageVersion = JavaLanguageVersion.of(targetJavaVersion)
+    }
+}
+
+tasks.withType(JavaCompile).configureEach {
+    options.encoding = 'UTF-8'
+
+    if (targetJavaVersion >= 10 || JavaVersion.current().isJava10Compatible()) {
+        options.release.set(targetJavaVersion)
+    }
+}
+
+/**
+ * TEMPLATE GENERATION (FIX GRADLE 8+)
+ */
+def generateTemplates = tasks.register('generateTemplates', Copy) {
+
+    inputs.property("version", project.version)
+
+    from('src/main/templates')
+    into(layout.buildDirectory.dir('generated/sources/templates'))
+
+    expand(version: project.version)
+
+    includeEmptyDirs = false
+}
+
+/**
+ * Ajout des sources générées
+ */
+sourceSets.main.java.srcDir(generateTemplates.map { it.outputs })
+
+/**
+ * SHADOW JAR CONFIG (fat jar)
+ */
+shadowJar {
+    archiveClassifier.set("") // supprime "-all"
+
+    mergeServiceFiles()
+}
+
+/**
+ * build dépend du shadowJar
+ */
+build {
+    dependsOn shadowJar
+}
+
+/**
+ * IntelliJ / Eclipse sync
+ */
+rootProject.idea.project.settings.taskTriggers.afterSync generateTemplates
+project.eclipse.synchronizationTasks(generateTemplates)

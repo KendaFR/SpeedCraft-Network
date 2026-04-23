@@ -1,0 +1,33 @@
+# IntelliJ IDEA
+
+.idea/
+*.iml
+*.iws
+out/
+
+# Gradle
+
+.gradle/
+build/
+!gradle/wrapper/gradle-wrapper.jar
+
+# Logs
+
+*.log
+
+# OS files
+
+.DS_Store
+Thumbs.db
+
+# Environment / credentials
+
+credentials.yml
+
+# Java
+
+*.class
+
+# Optional: local config overrides
+
+application-local.yml

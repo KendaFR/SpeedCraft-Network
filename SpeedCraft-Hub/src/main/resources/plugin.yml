@@ -1,0 +1,7 @@
+name: SpeedCraft-Hub
+version: '${version}'
+main: fr.kenda.speedcraft.hub.SpeedCraftHub
+load: STARTUP
+authors: [ Kenda ]
+depend:
+  - SpeedCraft-Core

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/SpeedCraft-Hub.main.iml" filepath="$PROJECT_DIR$/.idea/modules/SpeedCraft-Hub.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/SpeedCraft-Proxy.main.iml" filepath="$PROJECT_DIR$/.idea/modules/SpeedCraft-Proxy.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/SpeedCraftAPI.main.iml" filepath="$PROJECT_DIR$/.idea/modules/SpeedCraftAPI.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/SpeedCraftCore.main.iml" filepath="$PROJECT_DIR$/.idea/modules/SpeedCraftCore.main.iml" />
+    </modules>
+  </component>
+</project>

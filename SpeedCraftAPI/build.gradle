@@ -1,0 +1,43 @@
+plugins {
+    id 'java'
+}
+
+group = 'fr.kenda'
+version = '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testImplementation platform('org.junit:junit-bom:5.10.0')
+    implementation 'com.zaxxer:HikariCP:5.1.0'
+    implementation 'org.postgresql:postgresql:42.7.3'
+    compileOnly 'org.projectlombok:lombok:1.18.24'
+    annotationProcessor 'org.projectlombok:lombok:1.18.32'
+}
+
+// 📦 dossier central commun
+def globalLibDir = file("D:/Bureau/IntellijPlugin/SpeedCraft/libs")
+
+tasks.register('copyToCore') {
+    group = "Minecraft"
+    dependsOn build
+
+    doLast {
+        globalLibDir.mkdirs()
+
+        def jarFile = tasks.jar.archiveFile.get().asFile
+
+        println "📦 Copy API JAR -> SpeedCraft/libs"
+
+        copy {
+            from jarFile
+            into globalLibDir
+        }
+
+        println "✔ API copiée dans SpeedCraft/libs"
+    }
+}
+
+build.finalizedBy(copyToCore)

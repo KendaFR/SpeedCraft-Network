@@ -1,0 +1,9 @@
+{
+  "id":"speedcraftproxy",
+  "name":"SpeedCraft-Proxy",
+  "version":"1.0",
+  "description":"None",
+  "authors":["Kenda"],
+  "dependencies":[],
+  "main":"fr.kenda.speedcraftproxy.SpeedCraftProxy"
+}
