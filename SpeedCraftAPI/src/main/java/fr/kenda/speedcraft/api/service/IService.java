@@ -1,4 +1,4 @@
-package fr.kenda.speecraft.api.service;
+package fr.kenda.speedcraft.api.service;
 
 public interface IService {
 

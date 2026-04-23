@@ -1,6 +1,6 @@
-package fr.kenda.speecraft.api.database.repository;
+package fr.kenda.speedcraft.api.database.repository;
 
-import fr.kenda.speecraft.api.database.wrapper.WrapperQuery;
+import fr.kenda.speedcraft.api.database.wrapper.WrapperQuery;
 
 import javax.sql.DataSource;
 

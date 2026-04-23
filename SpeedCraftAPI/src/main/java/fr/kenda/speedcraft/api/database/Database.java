@@ -1,8 +1,8 @@
-package fr.kenda.speecraft.api.database;
+package fr.kenda.speedcraft.api.database;
 
-import fr.kenda.speecraft.api.database.repository.RankRepository;
-import fr.kenda.speecraft.api.database.repository.UserRepository;
-import fr.kenda.speecraft.api.database.wrapper.WrapperQuery;
+import fr.kenda.speedcraft.api.database.repository.RankRepository;
+import fr.kenda.speedcraft.api.database.repository.UserRepository;
+import fr.kenda.speedcraft.api.database.wrapper.WrapperQuery;
 import lombok.Getter;
 
 import javax.sql.DataSource;

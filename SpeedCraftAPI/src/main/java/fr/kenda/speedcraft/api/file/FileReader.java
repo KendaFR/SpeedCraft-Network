@@ -1,6 +1,6 @@
-package fr.kenda.speecraft.api.file;
+package fr.kenda.speedcraft.api.file;
 
-import fr.kenda.speecraft.api.enumeration.EExtension;
+import fr.kenda.speedcraft.api.enumeration.EExtension;
 
 import java.io.File;
 import java.io.IOException;

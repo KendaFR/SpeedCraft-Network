@@ -1,4 +1,4 @@
-package fr.kenda.speecraft.api.database.wrapper;
+package fr.kenda.speedcraft.api.database.wrapper;
 
 import javax.sql.DataSource;
 import java.sql.*;

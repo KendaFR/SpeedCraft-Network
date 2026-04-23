@@ -1,4 +1,4 @@
-package fr.kenda.speecraft.api.database;
+package fr.kenda.speedcraft.api.database;
 
 public record DatabaseCredentials(
         String host,

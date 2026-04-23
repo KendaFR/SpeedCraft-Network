@@ -5,5 +5,5 @@ import fr.kenda.speedcraft.core.utils.FileConfig;
 
 public class FileConfigurationUtils {
     public static final FileConfig CONFIG_MESSAGE =  new FileConfig("Hub", "messages", EExtension.YML);
-    public static final FileConfig HUB_CONFIG =  new FileConfig("hub_properties", "messages", EExtension.SETTINGS);
+    public static final FileConfig HUB_CONFIG =  new FileConfig("Hub", "hub_properties", EExtension.SETTINGS);
 }

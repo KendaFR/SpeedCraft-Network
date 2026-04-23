@@ -1,4 +1,4 @@
-package fr.kenda.speecraft.api.enumeration;
+package fr.kenda.speedcraft.api.enumeration;
 
 public enum EExtension {
     YAML("yaml"), YML("yml"), SETTINGS("settings");

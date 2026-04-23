@@ -8,6 +8,7 @@ import fr.kenda.speedcraft.core.utils.TimeUnitMillis;
 import fr.kenda.speedcraft.core.utils.TimeUnitTick;
 import fr.kenda.speedcraft.hub.scheduler.BossbarChangeTextScheduler;
 import fr.kenda.speedcraft.hub.services.EventService;
+import fr.kenda.speedcraft.hub.utils.FileConfigurationUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.boss.BarColor;
 import org.bukkit.boss.BarStyle;
@@ -27,7 +28,7 @@ public final class SpeedCraftHub extends JavaPlugin {
         EventService.getInstance().register();
 
         final SchedulerService schedulerService = SchedulerService.getINSTANCE();
-        schedulerService.registerScheduler("BossBarChange", new BossbarChangeTextScheduler(5));
+        schedulerService.registerScheduler("BossBarChange", new BossbarChangeTextScheduler(FileConfigurationUtils.HUB_CONFIG.getOrDefault("time_to_change", 10, Integer.class)));
         schedulerService.runScheduler("BossBarChange", 0, TimeUnitTick.SECONDS.getTicks());
     }
 

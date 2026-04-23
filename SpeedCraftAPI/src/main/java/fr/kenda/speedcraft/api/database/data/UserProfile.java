@@ -1,6 +1,6 @@
-package fr.kenda.speecraft.api.database.data;
+package fr.kenda.speedcraft.api.database.data;
 
-import fr.kenda.speecraft.api.enumeration.Rank;
+import fr.kenda.speedcraft.api.enumeration.Rank;
 
 import java.time.LocalDateTime;
 import java.util.UUID;
