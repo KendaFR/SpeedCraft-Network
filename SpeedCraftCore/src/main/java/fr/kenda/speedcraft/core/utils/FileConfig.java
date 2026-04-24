@@ -1,8 +1,8 @@
 package fr.kenda.speedcraft.core.utils;
 
-import fr.kenda.speecraft.api.enumeration.EExtension;
-import fr.kenda.speecraft.api.file.FileReader;
-import fr.kenda.speedcraft.core.SpeedCraftCore;
+import fr.kenda.speedcraft.api.enumeration.EExtension;
+import fr.kenda.speedcraft.api.file.FileReader;
+import lombok.Getter;
 import org.bukkit.configuration.file.YamlConfiguration;
 
 import java.io.File;
@@ -10,6 +10,7 @@ import java.io.IOException;
 
 public class FileConfig {
 
+    @Getter
     private final File file;
     private final YamlConfiguration config;
 
@@ -48,10 +49,6 @@ public class FileConfig {
         } catch (Exception e) {
             throw new RuntimeException("Erreur reload fichier: " + file.getName(), e);
         }
-    }
-
-    public File getFile() {
-        return file;
     }
 
     public <T> T getOrDefault(String path, T defaultValue, Class<T> type) {

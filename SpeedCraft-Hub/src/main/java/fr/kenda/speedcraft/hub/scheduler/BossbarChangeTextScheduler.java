@@ -2,7 +2,6 @@ package fr.kenda.speedcraft.hub.scheduler;
 
 import fr.kenda.speedcraft.core.bossbar.BossbarService;
 import fr.kenda.speedcraft.core.scheduler.Scheduler;
-import fr.kenda.speedcraft.core.utils.Logger;
 import org.bukkit.boss.BarColor;
 import org.bukkit.boss.BarStyle;
 
@@ -12,18 +11,15 @@ import java.util.concurrent.ThreadLocalRandom;
 
 public class BossbarChangeTextScheduler extends Scheduler {
 
-    record BossBarInfo(String text, BarColor color, BarStyle style) {
-    }
-
-    BossBarInfo lastInfo;
-    private boolean filling = false;
+    final BossbarService bossbarService;
     private final List<BossBarInfo> textToShow = Arrays.asList(
             new BossBarInfo("§cEn création...", BarColor.RED, BarStyle.SOLID),
             new BossBarInfo("§aRevenez bientôt...", BarColor.GREEN, BarStyle.SEGMENTED_10),
             new BossBarInfo("§6On prépare du lourd...", BarColor.YELLOW, BarStyle.SEGMENTED_10)
     );
+    BossBarInfo lastInfo;
+    private boolean filling = false;
 
-    final BossbarService bossbarService;
     public BossbarChangeTextScheduler(int timer) {
         super(timer);
         bossbarService = BossbarService.getINSTANCE();
@@ -61,5 +57,8 @@ public class BossbarChangeTextScheduler extends Scheduler {
         bossbarService.updateTextBossBar(newInfo.text);
         bossbarService.updateStyleBar(newInfo.style);
         bossbarService.updateColorBar(newInfo.color);
+    }
+
+    record BossBarInfo(String text, BarColor color, BarStyle style) {
     }
 }

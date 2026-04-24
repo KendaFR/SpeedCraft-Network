@@ -1,4 +1,4 @@
-package fr.kenda.speedcraft.core.utils;
+package fr.kenda.speedcraft.core.utils.time;
 
 import lombok.Getter;
 

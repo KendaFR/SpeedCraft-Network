@@ -1,11 +1,16 @@
 package fr.kenda.speedcraft.hub.services;
 
-import fr.kenda.speecraft.api.service.IService;
+import fr.kenda.speedcraft.api.service.IService;
 import fr.kenda.speedcraft.hub.SpeedCraftHub;
-import fr.kenda.speedcraft.hub.events.PlayerJoin;
+import fr.kenda.speedcraft.hub.events.BlockedEvent;
+import fr.kenda.speedcraft.hub.events.PlayerInteract;
 import fr.kenda.speedcraft.hub.events.PlayerQuit;
+import fr.kenda.speedcraft.hub.events.join.PlayerJoin;
 import org.bukkit.Bukkit;
+import org.bukkit.event.Listener;
 import org.bukkit.plugin.PluginManager;
+
+import java.util.Set;
 
 public class EventService implements IService {
 
@@ -19,11 +24,14 @@ public class EventService implements IService {
 
     @Override
     public void register() {
-        final SpeedCraftHub instance = SpeedCraftHub.getInstance();
+        SpeedCraftHub instance = SpeedCraftHub.getInstance();
         PluginManager pm = Bukkit.getPluginManager();
 
-        pm.registerEvents(new PlayerJoin(), instance);
-        pm.registerEvents(new PlayerQuit(), instance);
+        Set<Listener> events = Set.of(
+                new PlayerJoin(), new PlayerQuit(), new BlockedEvent(), new PlayerInteract()
+        );
+
+        events.forEach(listener -> pm.registerEvents(listener, instance));
     }
 
     @Override

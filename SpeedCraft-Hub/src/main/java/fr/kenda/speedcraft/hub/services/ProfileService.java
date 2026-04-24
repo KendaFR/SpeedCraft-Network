@@ -1,7 +1,7 @@
 package fr.kenda.speedcraft.hub.services;
 
-import fr.kenda.speecraft.api.database.data.UserProfile;
-import fr.kenda.speecraft.api.service.IService;
+import fr.kenda.speedcraft.api.database.data.UserProfile;
+import fr.kenda.speedcraft.api.service.IService;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,12 +17,14 @@ public class ProfileService implements IService {
     }
 
     @Override
-    public void register() {}
-    @Override
-    public void unregister() {}
+    public void register() {
+    }
 
-    public void addProfile(UserProfile profile)
-    {
+    @Override
+    public void unregister() {
+    }
+
+    public void addProfile(UserProfile profile) {
 
     }
 }
