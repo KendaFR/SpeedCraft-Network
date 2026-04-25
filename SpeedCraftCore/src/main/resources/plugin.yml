@@ -4,3 +4,7 @@ main: fr.kenda.speedcraft.core.SpeedCraftCore
 load: STARTUP
 authors: [ Kenda ]
 api-version: 1.20
+
+commands:
+  tps:
+    description: test

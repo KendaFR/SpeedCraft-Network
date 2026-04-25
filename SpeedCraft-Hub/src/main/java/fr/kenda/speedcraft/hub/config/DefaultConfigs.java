@@ -70,7 +70,10 @@ public class DefaultConfigs {
         DEFAULTS_GUI.put(HubPaths.RANKED_FRAME, "§6Ranked");
 
         DEFAULTS_GUI.put(HubPaths.GUI_GAME_TRAINING_TIME_RANDOM_SEED, "§aSpeedrun à temps !");
-        DEFAULTS_GUI.put(HubPaths.GUI_GAME_TRAINING_TIME_RANDOM_SEED_LORE, List.of("§7Entraînez-vous au speedrun", "§7avec une speed random !", "", "§7Joueurs: §e" + FileConfig.createPlaceholder("players"), "§7Dev: §6Kenda"));
+        DEFAULTS_GUI.put(HubPaths.GUI_GAME_TRAINING_TIME_RANDOM_SEED_LORE, List.of("§7Entraînez-vous au speedrun", "§7avec une seed random !", "", "§7Joueurs: §e" + FileConfig.createPlaceholder("players"), "§7Dev: §6Kenda"));
+
+        DEFAULTS_GUI.put(HubPaths.GUI_GAME_TRAINING_RANDOM_ITEM_RANDOM_SEED, "§aSpeedrun un item !");
+        DEFAULTS_GUI.put(HubPaths.GUI_GAME_TRAINING_RANDOM_ITEM_RANDOM_SEED_LORE, List.of("§7Entraînez-vous à speedrun un item", "§7avec une seed random !", "", "§7Joueurs: §e" + FileConfig.createPlaceholder("players"), "§7Dev: §6Kenda"));
 
         // =========================
         // SPAWN

@@ -1,5 +1,6 @@
 package fr.kenda.speedcraft.hub;
 
+import fr.kenda.speedcraft.core.command.CommandManager;
 import fr.kenda.speedcraft.core.scheduler.SchedulerService;
 import fr.kenda.speedcraft.core.utils.ConfigAutoGenerator;
 import fr.kenda.speedcraft.core.utils.time.TimeUnitTick;
@@ -24,7 +25,8 @@ public final class SpeedCraftHub extends JavaPlugin {
         ConfigAutoGenerator.generate(DEFAULTS_GUI, FileConfigurationUtils.CONFIG_GUI);
         ConfigAutoGenerator.generate(DEFAULTS_MESSAGES, FileConfigurationUtils.CONFIG_MESSAGE);
         ConfigAutoGenerator.generate(DEFAULTS_PROPERTIES, FileConfigurationUtils.HUB_PROPERTIES);
-        EventService.getInstance().register();
+        new EventService().register();
+        new CommandManager(this, "fr.kenda.speedcraft.hub").registerAll();
 
         final SchedulerService schedulerService = SchedulerService.getINSTANCE();
         schedulerService.registerScheduler("BossBarChange", new BossbarChangeTextScheduler(FileConfigurationUtils.HUB_PROPERTIES.getOrDefault("time_to_change", 10, Integer.class)));

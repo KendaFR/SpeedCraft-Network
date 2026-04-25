@@ -43,6 +43,9 @@ public final class HubPaths {
 
     public static final String  GUI_GAME_TRAINING_TIME_RANDOM_SEED = "gui.game.training.random_time_random_seed.name";
     public static final String  GUI_GAME_TRAINING_TIME_RANDOM_SEED_LORE = "gui.game.training.random_time_random_seed.lore";
+    public static final String GUI_GAME_TRAINING_RANDOM_ITEM_RANDOM_SEED = "gui.game.training.random_item_random_seed.name";
+    public static final String GUI_GAME_TRAINING_RANDOM_ITEM_RANDOM_SEED_LORE= "gui.game.training.random_item_random_seed.lore";
+
 
     public static final String SERVER_ID = "server_id";
 }
