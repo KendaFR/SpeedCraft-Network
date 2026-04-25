@@ -10,10 +10,9 @@ import java.util.Map;
 import java.util.UUID;
 
 public class GUIManager implements Listener {
-    private final Map<UUID, InventoryGUI> openGUIs = new HashMap<>();
-
     @Getter
     private static final GUIManager INSTANCE = new GUIManager();
+    private final Map<UUID, InventoryGUI> openGUIs = new HashMap<>();
 
     public void openGUI(Player player, InventoryGUI gui) {
 

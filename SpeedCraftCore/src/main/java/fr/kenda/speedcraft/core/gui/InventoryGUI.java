@@ -4,6 +4,7 @@ import lombok.Getter;
 import net.kyori.adventure.text.Component;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
+import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 
@@ -44,5 +45,9 @@ public abstract class InventoryGUI {
                 inventory.setItem(i, content[i]);
             }
         }
+    }
+
+    public void onClick(Player player, int slot, InventoryClickEvent event) {
+        // override optionnel
     }
 }

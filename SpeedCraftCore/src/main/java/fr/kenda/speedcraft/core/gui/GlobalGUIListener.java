@@ -8,11 +8,7 @@ import org.bukkit.event.inventory.InventoryCloseEvent;
 
 public class GlobalGUIListener implements Listener {
 
-    private final GUIManager manager;
-
-    public GlobalGUIListener(GUIManager manager) {
-        this.manager = manager;
-    }
+    private final GUIManager manager = GUIManager.getINSTANCE();
 
     @EventHandler
     public void onClick(InventoryClickEvent event) {
@@ -26,7 +22,7 @@ public class GlobalGUIListener implements Listener {
 
         event.setCancelled(true);
 
-        onGUIClick(player, gui, event);
+        gui.onClick(player, event.getSlot(), event);
     }
 
     @EventHandler
@@ -34,13 +30,8 @@ public class GlobalGUIListener implements Listener {
 
         if (!(event.getPlayer() instanceof Player player)) return;
 
-        InventoryGUI gui = manager.getOpenGUI(player);
-        if (gui == null) return;
-
-        manager.closeGUI(player);
-    }
-
-    protected void onGUIClick(Player player, InventoryGUI gui, InventoryClickEvent event) {
-        // override si besoin
+        if (manager.hasOpenGUI(player)) {
+            manager.closeGUI(player);
+        }
     }
 }

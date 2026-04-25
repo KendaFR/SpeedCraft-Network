@@ -3,20 +3,20 @@ package fr.kenda.speedcraft.core.utils.itembuilder;
 import net.kyori.adventure.text.Component;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
-import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.SkullMeta;
 
 import java.util.ArrayList;
 import java.util.List;
+
 public class SkullItemBuilder implements IItemBuilder {
 
     private final ItemBuilder parent;
 
     private Player owner;
     private String name;
-    private List<Component> lore = new ArrayList<>();
+    private final List<Component> lore = new ArrayList<>();
 
     public SkullItemBuilder(ItemBuilder parent) {
         this.parent = parent;

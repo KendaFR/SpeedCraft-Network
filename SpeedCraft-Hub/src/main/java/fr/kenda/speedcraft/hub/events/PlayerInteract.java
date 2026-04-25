@@ -1,8 +1,6 @@
 package fr.kenda.speedcraft.hub.events;
 
-import fr.kenda.speedcraft.core.utils.Logger;
 import fr.kenda.speedcraft.hub.events.join.JoinUtils;
-import net.kyori.adventure.text.Component;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;

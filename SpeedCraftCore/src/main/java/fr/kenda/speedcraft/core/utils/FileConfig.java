@@ -7,28 +7,26 @@ import org.bukkit.configuration.file.YamlConfiguration;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
 
 public class FileConfig {
 
+    public static String createPlaceholder(String placeholder)
+    {
+        return "{" + placeholder + "}";
+    }
     @Getter
     private final File file;
     private final YamlConfiguration config;
 
     public FileConfig(String folder, String fileName, EExtension extension) {
-
         File targetFolder = new File("plugins/SpeedCraft", folder);
         if (!targetFolder.exists()) {
             targetFolder.mkdirs();
         }
 
         this.file = FileReader.getFile(targetFolder.getPath(), fileName, extension);
-        this.config = YamlConfiguration.loadConfiguration(file);
-
-        save();
-    }
-
-    public FileConfig(String fileName, EExtension extension) {
-        this("", fileName, extension);
+        this.config = YamlConfiguration.loadConfiguration(this.file);
     }
 
     public YamlConfiguration get() {
@@ -54,18 +52,33 @@ public class FileConfig {
     public <T> T getOrDefault(String path, T defaultValue, Class<T> type) {
         Object value = config.get(path);
 
-        if (value == null) {
-            config.set(path, defaultValue);
-            save();
-            return defaultValue;
+        if (value == null) return defaultValue;
+
+        if (type == List.class && value instanceof List) {
+            return (T) value;
         }
 
         if (!type.isInstance(value)) {
             throw new IllegalStateException(
-                    "Type mismatch for path '" + path + "' (expected " + type.getSimpleName() + ")"
+                    "Type mismatch for path '" + path + "' (expected " +
+                            type.getSimpleName() + ", got " + value.getClass().getSimpleName() + ")"
             );
         }
 
         return type.cast(value);
+    }
+
+    public void addDefault(String path, Object value) {
+        if (!config.contains(path)) {
+            config.set(path, value);
+        }
+    }
+
+    public String getString(String path, String def) {
+        return getOrDefault(path, def, String.class);
+    }
+
+    public List<String> getStringList(String path, List<String> def) {
+        return getOrDefault(path, def, List.class);
     }
 }
