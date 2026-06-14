@@ -68,7 +68,7 @@ public class PlayerJoin implements Listener {
                 .map(line -> line
                         .replace(FileConfig.createPlaceholder("player"), player.getName())
                         .replace(FileConfig.createPlaceholder("rank"), Rank.ADMIN.getChatColor() + Rank.ADMIN.getNameRank())
-                        .replace(FileConfig.createPlaceholder("lobby_name"),
+                        .replace(FileConfig.createPlaceholder("server_name"),
                                 FileConfigurationUtils.HUB_PROPERTIES.getOrDefault(
                                         HubPaths.SERVER_ID,
                                         UUID.randomUUID().toString(),

@@ -27,6 +27,11 @@ dependencies {
 
     // TON API locale (incluse dans le jar final)
     implementation files("../libs/SpeedCraftAPI-1.0-SNAPSHOT.jar")
+
+    implementation("com.github.docker-java:docker-java-core:3.7.0")
+    implementation("com.github.docker-java:docker-java-transport-httpclient5:3.7.0")
+    implementation 'com.github.docker-java:docker-java-transport-zerodep:3.7.0'
+
 }
 
 /**
@@ -93,3 +98,7 @@ build {
  */
 rootProject.idea.project.settings.taskTriggers.afterSync generateTemplates
 project.eclipse.synchronizationTasks(generateTemplates)
+
+tasks.jar {
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+}

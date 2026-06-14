@@ -25,6 +25,7 @@ public final class SpeedCraftHub extends JavaPlugin {
         ConfigAutoGenerator.generate(DEFAULTS_GUI, FileConfigurationUtils.CONFIG_GUI);
         ConfigAutoGenerator.generate(DEFAULTS_MESSAGES, FileConfigurationUtils.CONFIG_MESSAGE);
         ConfigAutoGenerator.generate(DEFAULTS_PROPERTIES, FileConfigurationUtils.HUB_PROPERTIES);
+
         new EventService().register();
         new CommandManager(this, "fr.kenda.speedcraft.hub").registerAll();
 

@@ -60,7 +60,7 @@ processResources {
 // ========================
 //
 
-def serverDir = file("D:/Bureau/Serveur/SpeedCraft")
+def serverDir = file("D:/Bureau/Serveur/SpeedCraftNetwork/SpeedCraft-Hub")
 def serverJar = file("$serverDir/paper.jar")
 
 // 📥 Download Paper

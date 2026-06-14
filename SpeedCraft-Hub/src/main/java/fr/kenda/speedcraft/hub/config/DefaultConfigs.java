@@ -54,7 +54,7 @@ public class DefaultConfigs {
 
         DEFAULTS_MESSAGES.put(HubPaths.SCOREBOARD_LINES, List.of(
                 "§7Joueur: " + FileConfig.createPlaceholder("player"),
-                "§7Serveur: " + FileConfig.createPlaceholder("lobby_name")
+                "§7Serveur: " + FileConfig.createPlaceholder("server_name")
         ));
 
         DEFAULTS_MESSAGES.put(HubPaths.GLOBAL_WIP, "§cWork In Progress...");
