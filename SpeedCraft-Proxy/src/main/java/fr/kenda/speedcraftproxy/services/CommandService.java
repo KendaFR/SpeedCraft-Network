@@ -16,7 +16,7 @@ public class CommandService {
     public void registerCommands() {
         CommandManager manager = SpeedCraftProxy.getInstance().getServer().getCommandManager();
         Set<CommandExecutor> cmd = Set.of(
-                new ServersCommand("servers", "speedcraft.admin")
+                new ServersCommand("servers", null)
         );
 
         cmd.forEach(commandInfo ->

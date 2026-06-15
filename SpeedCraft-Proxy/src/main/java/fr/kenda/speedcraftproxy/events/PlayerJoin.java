@@ -15,7 +15,7 @@ import java.util.Optional;
 
 public class PlayerJoin {
 
-    @Subscribe
+    /*@Subscribe
     public void onJoin(PostLoginEvent event) {
         Player player = event.getPlayer();
 
@@ -27,5 +27,18 @@ public class PlayerJoin {
                 player.createConnectionRequest(registeredServer).fireAndForget();
             });
         }
+    }*/
+
+    @Subscribe
+    public void onChooseServer(PlayerChooseInitialServerEvent event) {
+
+        Optional<ServerInfo> hub =
+                ServerService.getINSTANCE().getServerByType(EServerType.HUB);
+
+        hub.flatMap(serv ->
+                        SpeedCraftProxy.getInstance()
+                                .getServer()
+                                .getServer(serv.getName()))
+                .ifPresent(event::setInitialServer);
     }
 }

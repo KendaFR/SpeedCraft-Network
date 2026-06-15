@@ -15,6 +15,7 @@ import org.slf4j.Logger;
 import java.net.URISyntaxException;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 @Getter
 @Plugin(
@@ -44,11 +45,15 @@ public class SpeedCraftProxy {
         EventService.getINSTANCE().register();
         CommandService.getINSTANCE().registerCommands();
         ServerService.getINSTANCE().init();
+
+        server.getServer("placeholder").ifPresent(registeredServer ->
+                server.unregisterServer(registeredServer.getServerInfo()));
     }
 
     @Subscribe
     public void OnProxyShutdown(ProxyShutdownEvent event) {
         logger.info("Plugin shutdown...");
+        ServerService.getINSTANCE().shutdown();
 
         logger.info("Tous les serveurs arrêtés.");
     }
